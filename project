@@ -1,0 +1,46 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class NumberGuessingGame {
+    public static void main(String[] args) {
+        Random rand = new Random();
+        int randomNumber = rand.nextInt(100) + 1;
+
+        Scanner scanner = new Scanner(System.in);
+        int attempts = 0;
+        boolean hasGuessedCorrectly = false;
+
+        System.out.println("Welcome to the Number Guessing Game!");
+        System.out.println("A number has been chosen between 1 and 100.");
+        System.out.println("Try to guess the number! Type 'quit' to exit the game if you want to.");
+
+        while (!hasGuessedCorrectly) {
+            System.out.print("Enter your guess: ");
+            
+            if (scanner.hasNext("quit")) {
+                System.out.println("You chose to quit. The correct number was: " + randomNumber);
+                break;
+            }
+
+            if (scanner.hasNextInt()) {
+                int userGuess = scanner.nextInt();
+                attempts++;
+
+                if (userGuess < randomNumber) {
+                    System.out.println("Too low! Try again.");
+                } else if (userGuess > randomNumber) {
+                    System.out.println("Too high! Try again.");
+                } else {
+                    System.out.println("Congratulations! You guessed the number correctly in " + attempts + " attempts.");
+                    hasGuessedCorrectly = true;
+                }
+            } else {
+                String invalidInput = scanner.next();
+                System.out.println("Error: '" + invalidInput + "' is not a valid number. Please enter a number or type 'quit' to exit.");
+            }
+        }
+
+        scanner.close();
+        System.out.println("Thank you for playing!");
+    }
+}
